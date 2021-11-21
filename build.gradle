@@ -54,3 +54,49 @@ task hello (description: "Hello task", group: "dmdev") {
     println "task: $description, group: $group, actions: $actions.size"
     println "path task: ${path}"
 }
+
+task first {
+    doLast {
+        println "Task 1"
+    }
+}
+
+task second {
+    doLast {
+        println "Task 2"
+    }
+}
+
+task third {
+    doLast {
+        println "Task 3"
+    }
+}
+
+task fourth {
+//    dependsOn()
+    doLast {
+        println "Task 4"
+    }
+}
+
+// 2 <---- 4
+
+//fourth.dependsOn second
+//second.dependsOn first
+//second.finalizedBy third
+
+
+fourth.dependsOn first
+fourth.dependsOn second
+fourth.dependsOn third
+
+first.mustRunAfter second
+//second.shouldRunAfter first
+
+gradle.taskGraph.whenReady { graph ->
+    println "--- Graph:"
+    graph.allTasks.each {
+        println "${it.name}"
+    }
+}
