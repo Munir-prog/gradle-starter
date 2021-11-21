@@ -73,7 +73,7 @@ task third {
     }
 }
 
-task fourth {
+task fourth(group: "mprog") {
 //    dependsOn()
     doLast {
         println "Task 4"
@@ -100,3 +100,18 @@ gradle.taskGraph.whenReady { graph ->
         println "${it.name}"
     }
 }
+
+
+gradle.taskGraph.beforeTask { Task task ->
+    if (task.group == "mprog") {
+        println "before task callback $task"
+    }
+}
+
+gradle.taskGraph.afterTask { Task task ->
+    if (task.name == "first") {
+        println "after task callback $task"
+    }
+}
+
+defaultTasks "second"
