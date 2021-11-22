@@ -14,7 +14,6 @@ ext {
 
 println ext.javaVersion
 println javaVersion
-println project.projectParam1
 println " ---- All properties:"
 println project.properties
 println " ---- System: "
