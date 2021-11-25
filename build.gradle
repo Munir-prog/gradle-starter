@@ -8,6 +8,19 @@ apply from: 'script.gradle'
 
 //apply plugin: CustomPlugin
 
+repositories {
+//    ~/.m2/repository
+//    mavenLocal()
+//    maven {
+//        name "nexus mprog"
+//        url "https://nexus.mprog/repository"
+//    }
+    mavenCentral()
+
+//    on your own ssd/hdd
+//    flatDir {}
+}
+
 sourceSets {
     main {
         java {
