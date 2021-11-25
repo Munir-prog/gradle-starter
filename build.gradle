@@ -6,7 +6,19 @@ plugins {
 
 apply from: 'script.gradle'
 
-apply plugin: CustomPlugin
+//apply plugin: CustomPlugin
+
+sourceSets {
+    main {
+        java {
+            srcDir("$buildDir/generated-sources/querydsl")
+        }
+    }
+    test {
+
+    }
+}
+
 
 class CustomPlugin implements Plugin<Project> {
 
