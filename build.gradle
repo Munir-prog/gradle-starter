@@ -1,3 +1,9 @@
+plugins {
+    id 'java'
+}
+// old variant
+//apply plugin: 'java'
+
 apply from: 'script.gradle'
 
 apply plugin: CustomPlugin
