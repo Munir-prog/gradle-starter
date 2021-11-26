@@ -21,10 +21,20 @@ repositories {
 //    flatDir {}
 }
 
+configurations {
+
+    def configurationImpl = getByName("implementation")
+//    configurationImpl.getDependencies()
+    mprog {
+        description = "mprog config"
+    }
+    configurationImpl.extendsFrom(mprog)
+}
+
 dependencies {
 //    add('implementation', [group: 'org.springframework', name: 'spring-webmvc', version: '5.3.9'])
 //    add('implementation', "org.springframework:spring-webmvc:5.3.9")
-    implementation "org.springframework:spring-webmvc:5.3.9"
+    mprog "org.springframework:spring-webmvc:5.3.9"
 
 }
 
