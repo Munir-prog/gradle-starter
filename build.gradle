@@ -1,5 +1,6 @@
 plugins {
     id 'java'
+    id 'war'
 }
 // old variant
 //apply plugin: 'java'
@@ -8,6 +9,10 @@ apply from: 'script.gradle'
 
 //apply plugin: CustomPlugin
 
+java {
+    sourceCompatibility = JavaVersion.VERSION_17
+    targetCompatibility = JavaVersion.VERSION_17
+}
 repositories {
 //    ~/.m2/repository
 //    mavenLocal()
@@ -39,7 +44,8 @@ configurations {
 }
 
 dependencies {
-//    compileOnly 'org.springframework.boot:spring-boot-dependencies:2.5.6'
+    compileOnly 'jakarta.servlet:jakarta.servlet-api:5.0.0'
+    //    compileOnly 'org.springframework.boot:spring-boot-dependencies:2.5.6'
 //    add('implementation', [group: 'org.springframework', name: 'spring-webmvc', version: '5.3.9'])
 //    add('implementation', "org.springframework:spring-webmvc:5.3.9")
     implementation("org.springframework:spring-webmvc:5.3.9") {
@@ -73,7 +79,18 @@ task copyAllDependencies(type: Copy) {
     into("$buildDir/libs/lib")
 }
 
+
+
+task deployInTomcat (type: Copy) {
+    from(war.archiveFile.get())
+    into("/home/munir/work/apache-tomcat-10.0.5/webapps")
+}
+
+deployInTomcat.dependsOn war
+assemble.dependsOn deployInTomcat
+
 jar.dependsOn(copyAllDependencies)
+war.dependsOn(copyAllDependencies)
 //sourceSets {
 //    main {
 //        java {
