@@ -10,10 +10,27 @@ repositories {
 }
 
 dependencies {
-    testImplementation 'junit:junit:4.11'
+    implementation project(":common:util")
+    implementation project(":service")
+    compileOnly 'jakarta.servlet:jakarta.servlet-api:5.0.0'
     testImplementation 'org.junit.jupiter:junit-jupiter-api:5.7.0'
     testRuntimeOnly 'org.junit.jupiter:junit-jupiter-engine:5.7.0'
 }
+
+
+war {
+    archiveName "mprog.war"
+}
+
+
+task deployInTomcat (type: Copy) {
+    from(war.archiveFile.get())
+    into("/home/munir/work/apache-tomcat-10.0.5/webapps")
+}
+
+deployInTomcat.dependsOn war
+assemble.dependsOn deployInTomcat
+
 
 test {
     useJUnitPlatform()

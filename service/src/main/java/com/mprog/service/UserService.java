@@ -1,4 +1,4 @@
-package com.mprog.dao.service;
+package com.mprog.service;
 
 import com.mprog.dao.UserDao;
 import com.mprog.model.User;

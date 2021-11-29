@@ -79,15 +79,10 @@ task copyAllDependencies(type: Copy) {
     into("$buildDir/libs/lib")
 }
 
-
-
-task deployInTomcat (type: Copy) {
-    from(war.archiveFile.get())
-    into("/home/munir/work/apache-tomcat-10.0.5/webapps")
+war {
+    archiveName "mprog.war"
 }
 
-deployInTomcat.dependsOn war
-assemble.dependsOn deployInTomcat
 
 jar.dependsOn(copyAllDependencies)
 war.dependsOn(copyAllDependencies)
