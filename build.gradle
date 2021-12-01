@@ -121,3 +121,6 @@ war.dependsOn(copyAllDependencies)
 //    }
 //}
 
+wrapper {
+//    gradleVersion "7.3"
+}
