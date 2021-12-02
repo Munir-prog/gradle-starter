@@ -1,0 +1,46 @@
+import com.mprog.com.mprog.task.ReleaseTask
+
+plugins {
+    id 'java-library'
+    id 'jacoco'
+    id 'custom-mprog'
+}
+
+
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    api project(":database")
+
+    testImplementation 'org.junit.jupiter:junit-jupiter-api:5.7.2'
+    testRuntimeOnly 'org.junit.jupiter:junit-jupiter-engine:5.7.2'
+}
+
+test {
+    maxParallelForks 3
+    useJUnitPlatform()
+}
+
+test.finalizedBy jacocoTestReport
+jacocoTestReport.dependsOn test
+
+ext {
+    release = true
+}
+
+task makeRelease(type: ReleaseTask){
+    release = project.release
+    releaseFile = new File("$rootDir/script.gradle")
+}
+//
+//task makeRelease {
+//    inputs.property("release", project.release)
+//    outputs.file("$rootDir/script.gradle")
+//
+//    doLast {
+//        println "release in progress..."
+//    }
+//}
